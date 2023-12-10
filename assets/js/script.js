@@ -121,32 +121,48 @@ fetch("https://striveschool-api.herokuapp.com/api/product/", {
   }
   
   function mostraProdotti(prodotti) {
-      const disposizioneProdotti = document.querySelector("#schedeProdotti");
-  
-      prodotti.forEach((prodotto) => {
-          const card = document.createElement("div");
-          card.classList.add("card");
-  
-          const image = document.createElement("img");
-          image.src = prodotto.imageUrl;
-          image.alt = prodotto.name;
-          card.appendChild(image);
-  
-          const title = document.createElement("h2");
-          title.textContent = prodotto.name;
-          card.appendChild(title);
-  
-          const brand = document.createElement("p");
-          brand.textContent = `Brand: ${prodotto.brand}`;
-          card.appendChild(brand);
-  
-          const price = document.createElement("p");
-          price.textContent = `Price: ${prodotto.price} €`;
-          card.appendChild(price);
-  
-          disposizioneProdotti.appendChild(card);
-      });
-  }
-  
-  // Chiamata iniziale per ottenere i prodotti al caricamento della pagina
-  fetchProducts();
+    const disposizioneProdotti = document.querySelector("#schedeProdotti");
+
+    prodotti.forEach((prodotto) => {
+        const card = document.createElement("div");
+        card.classList.add("card", "col-12", "col-md-6", "col-lg-4", "col-xl-3", "mb-3");
+
+        const image = document.createElement("img");
+        image.src = prodotto.imageUrl;
+        image.alt = prodotto.name;
+        image.classList.add("card-img-top", "img-fluid");
+        card.appendChild(image);
+
+        const cardBody = document.createElement("div");
+        cardBody.classList.add("card-body");
+
+        const title = document.createElement("h2");
+        title.textContent = prodotto.name;
+        title.classList.add("card-title");
+        cardBody.appendChild(title);
+
+        const brand = document.createElement("p");
+        brand.textContent = `Brand: ${prodotto.brand}`;
+        brand.classList.add("card-text");
+        cardBody.appendChild(brand);
+
+        const price = document.createElement("p");
+        price.textContent = `Price: ${prodotto.price} €`;
+        price.classList.add("card-text");
+        cardBody.appendChild(price);
+
+        const editButton = document.createElement("button");
+        editButton.textContent = "Modifica";
+        editButton.classList.add("btn", "btn-primary", "mt-3");
+        editButton.addEventListener("click", () => {
+            window.location.href = "backoffice.html"; // Reindirizzamento alla pagina backoffice.html
+        });
+        cardBody.appendChild(editButton);
+
+        card.appendChild(cardBody);
+        disposizioneProdotti.appendChild(card);
+    });
+}
+
+fetchProducts();
+
