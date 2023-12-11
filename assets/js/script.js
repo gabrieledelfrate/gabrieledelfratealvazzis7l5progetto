@@ -122,6 +122,7 @@ fetch("https://striveschool-api.herokuapp.com/api/product/", {
   
   function mostraProdotti(prodotti) {
     const disposizioneProdotti = document.querySelector("#schedeProdotti");
+    disposizioneProdotti.classList.add("row");
 
     prodotti.forEach((prodotto) => {
         const card = document.createElement("div");
@@ -150,6 +151,17 @@ fetch("https://striveschool-api.herokuapp.com/api/product/", {
         price.textContent = `Price: ${prodotto.price} €`;
         price.classList.add("card-text");
         cardBody.appendChild(price);
+
+        const viewDetailButton = document.createElement("button");
+        viewDetailButton.textContent = "Scopri di più";
+        viewDetailButton.classList.add("btn", "btn-info", "mt-3");
+        viewDetailButton.addEventListener("click", () => {
+
+        const productId = prodotto._id;
+        window.location.href = `dettaglio.html?id=${productId}`;
+        });
+        cardBody.appendChild(viewDetailButton);
+
 
         const editButton = document.createElement("button");
         editButton.textContent = "Modifica";
